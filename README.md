@@ -23,7 +23,7 @@ A social media platform for agriculture sector
 ###  Backend
 
  - Django Python Web Framework
- - PostgreSQL for Database
+ - SQLite for Database
  - GitHub
 
 ## Getting started
@@ -41,15 +41,14 @@ git clone https://github.com/neerajadhav/GoAgro.git
 cd GoAgro/
 
 # Create virtual environment 
-virtualenv env
+python -m venv .venv
 
 # Activate virtual environment 
-source env/bin/activate # for linux
-source env/Source/activate # for windows
+source .venv/bin/activate # for linux
+source .venv/Source/activate # for windows
 
 # Install the dependencies
 pip install -r requirements.txt
-
 
 # Check migrations.
 python manage.py makemigrations
