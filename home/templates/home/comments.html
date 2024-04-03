@@ -1,0 +1,34 @@
+{% load crispy_forms_tags %}
+{% for c in i.comment_set.all %}
+<div class="card-body border mb-3" style="border-radius: 10px;">
+    <div class="d-flex align-items-center gap-2">
+        <div style="width: 40px;">
+            <img src="{{ c.user.image.url }}" class="img-fluid rounded-circle" style="width: 40px; height: 40px;"
+                alt="dog">
+        </div>
+        <div class="pb-0 ml-2" style="line-height: 20px;">
+            <small class="card-title">
+                <b>{{ c.user }}</b>
+            </small><br>
+            <small>{{ c.user.first_name }} {{ c.user.last_name }}</small>
+        </div>
+    </div>
+    <p>
+        {{ c.body|linebreaks }}
+    </p>
+    <small class="text-muted">{{ c.created|timesince }}</small>
+</div>
+{% endfor %}
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <input type="hidden" name="post_id" value="{{ i.id }}">
+
+    <div class="input-group mb-">
+        {{ c_form }}
+        <button class="btn btn-secondary input-group-addon" style="border-radius: 0px 10px 10px 0px;"
+            name="c_form_sumbit" type="submit">
+            <i class="bi bi-cursor-fill"></i>
+        </button>
+    </div>
+</form>

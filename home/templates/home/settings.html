@@ -1,0 +1,28 @@
+{% extends "home/base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}
+    Settings
+{% endblock %}
+
+{% block maincontent %}
+
+<div class="card p-3 border-0 shadow" style="border-radius: 10px;">
+    <h5>Update Info</h5>
+    <br>
+
+    <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+        {{ form|crispy }}
+        <br><br>
+        <center>
+            <button class="btn active-btn float-end" type="submit">Update</button>
+        </center>
+        
+    </form>
+
+</div>
+
+<br><br>
+<br><br>
+{% endblock %}

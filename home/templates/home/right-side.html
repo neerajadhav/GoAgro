@@ -1,0 +1,28 @@
+{% load static %}
+
+<!-- topdrop -->
+<div class="d-flex align-items-center">
+    <div style="padding-right: 10px;">
+        <a href="{% url 'profile' %}" style="text-decoration: none; color: black;">
+            <img src="{{ user.profile.image.url }}" class="img-fluid rounded-circle" style="width: 40px; height: 40px;"
+                alt="{{ user.username }}">
+        </a>
+    </div>
+    <div class="flex-grow-1">
+        <a href="{% url 'profile' %}" style="text-decoration: none; color: black;">
+            <small class="card-title"><b>@{{ user.username }}</b></small><br>
+            {% if user.profile.first_name %}
+            <small> {{ user.profile.first_name }} {{ user.profile.last_name }} </small>
+            {% endif %}
+        </a>
+    </div>
+    <div class="dropdown">
+        <button class="btn top-tab inactive-btn dropdown-toggle" type="button" id="navdrop" data-bs-toggle="dropdown"
+            aria-expanded="false"></button>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navdrop">
+            <li><a class="dropdown-item" href="{% url 'settings' %}"><i class="bi bi-gear"></i> Setting</a></li>
+            <li><a class="dropdown-item text-danger" href="{% url 'logout' %}"><i class="bi bi-box-arrow-left"></i>
+                    Logout</a></li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,44 @@
+{% extends "home/base.html" %}
+
+{% block title %}
+    All Profiles
+{% endblock %}
+
+{% block maincontent %}
+
+<div class="mt-5">
+<a href="{% url 'all-profiles' %}" style="border-radius: 10px;" class="btn btn-outline-primary">All Profiles</a>
+<a href="{% url 'invite-profiles' %}" style="border-radius: 10px;" class="btn btn-primary">Send Requests</a>
+</div>
+
+<div class="card p-3 mt-lg-3 mt-4 border-0 shadow" style="border-radius: 10px;">
+    <h5>Add new friends</h5>
+    <br>
+
+    {% if qs %}
+    <div class="row">
+        {% for i in qs %}
+            <div class="col-lg-4">
+                <div class="align-items-center mb-3">
+                    <div class="card p-3" style="border-radius: 10px;">
+                        <div class="user text-center">
+                            <div class="profile"> <img src="{{ i.user.profile.image.url }}" class="rounded-circle" width="60%"> </div>
+                        </div>
+                        <div class="mt-5 text-center">
+                            <h5 class="mb-0">{{ i.user }}</h5> <span class="text-muted d-block mb-2">{{ i.user.profile.first_name }} {{ i.user.profile.last_name }}</span> <button class="btn btn-success btn-sm follow">Add Friend</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-info text-center">
+        <h5>You are the only one</h5>
+    </div>
+    {% endif %}
+
+
+</div>
+
+{% endblock %}

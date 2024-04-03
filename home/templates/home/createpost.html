@@ -1,0 +1,21 @@
+<!-- create -->
+{% load crispy_forms_tags %}
+
+<div class="border pb-3 p-2 shadow" style="border-radius: 10px; background: white;" >
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    {{ p_form|crispy }}
+
+    <img id="output_image" class="img-fluid mt-3" style="border-radius: 10px;" />
+
+    <a onclick="$('#file').click();" class="btn inactive-btn mt-3">
+        <i class="bi bi-image"></i>
+    </a>
+    <button class="btn inactive-btn mt-3" name="p_form_submit" type="submit">
+        Post
+    </button>
+    
+</form>
+
+</div>

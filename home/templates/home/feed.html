@@ -1,0 +1,84 @@
+{% if qs %}
+{% for i in qs %}
+<div class="card shadow mt-4" style="border-radius: 10px;">
+    <div class="card-body pb-0 d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center gap-2">
+            <div style="width: 40px;">
+                <img src="{{ i.author.image.url }}" class="img-fluid rounded-circle" style="width: 40px; height: 40px;"
+                    alt="dog">
+            </div>
+            <div class="pb-0 ml-2" style="line-height: 20px;">
+                <small class="card-title">
+                    <b>{{ i.author.first_name }} {{ i.author.last_name }}</b>
+                </small><br>
+                <small>@{{ i.author.user }}</small>
+            </div>
+        </div>
+        <div class="d-flex gap-3">
+            <form method="POST" action="{% url 'liked'%}" class="like-form" id="{{ i.id }}">
+                {% csrf_token %}
+                <input type="hidden" name="post_id" value="{{ i.id }}">
+                <div class="like-count{{ i.id }}" style="display: inline-block;">{{ i.num_likes }}</div>
+                <button type="submit" class="btn p-0 like-btn{{ i.id }}">
+                    {% if profile not in i.liked.all %}
+                    <i class="bi bi-heart"></i>
+                    {% else %}
+                    <i class="bi bi-heart-fill text-danger"></i>
+                    {% endif %}
+                </button>
+            </form>
+            {% ifequal request.user i.author.user %}
+            <a href="{% url 'posts:post-update' i.pk %}" class="text-dark text-decoration-0"><i
+                    class="bi bi-pencil-square"></i></a>
+            <div class="dropdown">
+                <a class="text-dark" href="#" role="button" id="postid" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-three-dots-vertical"></i>
+                </a>
+
+                <ul class="dropdown-menu" aria-labelledby="postid">
+                    <li>
+                        <a class="dropdown-item text-danger" href="{% url 'posts:post-delete' i.pk %}"><i
+                                class="bi bi-trash"></i> Delete Post</a>
+                    </li>
+                </ul>
+            </div>
+            {% endifequal %}
+        </div>
+    </div>
+    {% if i.image %}
+    <img src="/media/{{ i.image }}" class="img-fluid mt-3" alt="farm">
+    {% endif %}
+    <div class="card-body">
+        {{ i.content|linebreaks }}
+        <p class="card-text"><small class="text-muted">{{ i.created|timesince }} ago</small></p>
+        <div class="accordion accordion-flush mt-3" id="accordionFlushExample{{ i.id }}">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingOne">
+                    <button class="accordion-button collapsed" style="border-radius: 10px;" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#flush-collapseOne{{ i.id }}" aria-expanded="false"
+                        aria-controls="flush-collapseOne">
+                        <i class="bi bi-chat-dots"></i>
+                        &nbsp; {{ i.num_comments }}
+                        &nbsp; <span>Comments</span>
+                    </button>
+                </h2>
+                <div id="flush-collapseOne{{ i.id }}" class="accordion-collapse collapse"
+                    aria-labelledby="flush-headingOne{{ i.id }}" data-bs-parent="#accordionFlushExample{{ i.id }}">
+                    <div class="accordion-body p-0 mt-3">
+                        {% include 'home/comments.html' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endfor %}
+<br><br>
+<br><br>
+<br><br>
+{% else %}
+<div class="alert alert-warning border border-warning shadow mt-4" style="border-radius: 10px;" role="alert">
+    No posts available.
+</div>
+{% endif %}
