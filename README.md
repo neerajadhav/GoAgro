@@ -56,6 +56,11 @@ python manage.py makemigrations
 # Apply migrations.
 python manage.py migrate
 
+# Create superuser
+python manage.py createsuperuser
+
+# 
+
 #Starting the application
 python manage.py runserver
 ```
