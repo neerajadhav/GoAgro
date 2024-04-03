@@ -1,8 +1,6 @@
 
 # GoAgro
-A social media platform for agriculture sector 
-
-## [Demo video](https://drive.google.com/file/d/1E-Zy4Zat2XYIHKrz0iaB9Ii77jSuSdsI/view?usp=sharing)
+Agriculture made simple. A platform for farmers to connect, share and learn from each other. 
 
 ## Features 
  - Mobile first **Modern design**
