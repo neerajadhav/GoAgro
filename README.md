@@ -8,8 +8,7 @@ A social media platform for agriculture sector
  - Mobile first **Modern design**
  - Users can **create**, **delete**, **edit**, **like** posts and make **comments** on them
  - **Newspaper** section, where all **agriculture** and **farmers** related news is served from various trusted sources
- -  A **Marketplace** to make it easy for farmers to **find stores** located in their area
-- Friend system, **send**, **accept** friend requests
+ -  A **Marketplace** to make it easy for farmers to **find market rated** of desired crops
 - **Weather updates** for searched location
 ## Tech Stack
 
