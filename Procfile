@@ -1,1 +1,1 @@
-web: gunicorn AgroMedia.wsgi --log-file -
+web: gunicorn GoAgro.wsgi --log-file -
