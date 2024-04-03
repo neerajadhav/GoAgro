@@ -1,12 +1,14 @@
 from django.shortcuts import render
 import urllib.request
-import json
+import json, os
+
+WEATHER_API_KEY = os.environ.get("WEATHER_API_KEY")  # newsapi.org
 
 def index(request):
     if request.method == 'POST':
         city = request.POST['city']
         print(city)
-        source = 'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=metric&appid=YOUR_API_KEY'
+        source = 'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=metric&appid='+ WEATHER_API_KEY +''
         data = urllib.request.urlopen(url).read()
         parsed = json.loads(data)
         weather = {

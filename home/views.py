@@ -12,8 +12,8 @@ from django.contrib.auth.models import User
 from posts.models import Comment
 import os
 
-API_KEY = os.environ.get("NEWS_APPI_KEY")  # newsapi.org
-WEATHER_API_KEY = os.environ.get("WEATHER_API_KEY")  # newsapi.org
+API_KEY = os.environ.get("NEWS_APPI_KEY")
+WEATHER_API_KEY = os.environ.get("WEATHER_API_KEY")
 
 
 def home(request):
