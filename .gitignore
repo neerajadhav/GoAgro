@@ -48,3 +48,13 @@ celerybeat.pid
 # Existing entries
 media/images/
 media/profile_pics/
+# Node/Tailwind
+node_modules/
+*.tgz
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+# Tailwind build artifacts
+/theme_landing/static/css/
+/theme_landing/static_src/package-lock.json
+/theme_landing/static_src/node_modules/

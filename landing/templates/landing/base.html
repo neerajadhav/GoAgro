@@ -3,31 +3,48 @@
 <html lang="en">
 
 <head>
-  <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="{% static 'images/logo.png' %}" type="image/x-icon">
-
-
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
-
-  <link rel="stylesheet" href="{% static 'css/auth.css' %}">
-
-  <title>{% block title %}{% endblock %} - GoAgro</title>
+  <title>{% block title %}GoAgro{% endblock %}</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome for icons -->
+  <script src="https://kit.fontawesome.com/ae930065e5.js" crossorigin="anonymous"></script>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+  <script>
+    // Offset scroll for sticky navbar
+    document.addEventListener('DOMContentLoaded', function() {
+      function offsetAnchor() {
+        if(location.hash.length !== 0) {
+          const yOffset = 70; // Adjust to match navbar height
+          const el = document.getElementById(location.hash.replace('#', ''));
+          if (el) {
+            const y = el.getBoundingClientRect().top + window.pageYOffset - yOffset;
+            window.scrollTo({top: y, behavior: 'smooth'});
+          }
+        }
+      }
+      window.addEventListener('hashchange', offsetAnchor);
+      // If page loaded with hash
+      if(location.hash.length !== 0) {
+        setTimeout(offsetAnchor, 1);
+      }
+    });
+  </script>
+  {% block extra_head %}{% endblock %}
 </head>
 
-<body>
-  <section class="d-flex justify-content-center align-items-center" style="height: 100vh;">
-    <div class="col-10 col-md-6 col-lg-4">
-      {% block forms %}{% endblock %}
-    </div>
-  </section>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ"
-    crossorigin="anonymous"></script>
+<body class="bg-gradient-to-br from-green-50 via-green-100 to-white min-h-screen flex flex-col">
+  {% block navbar %}{% endblock %}
+  <main class="flex-1 flex flex-col">
+    {% block content %}{% endblock %}
+  </main>
+  {% block footer %}{% endblock %}
 </body>
 
 </html>

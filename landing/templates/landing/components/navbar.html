@@ -1,0 +1,17 @@
+{% load static %}
+<!-- Navbar Component -->
+<nav class="w-full flex items-center justify-between px-8 py-4 bg-white shadow-md fixed top-0 left-0 z-50">
+  <div class="flex items-center gap-2">
+    <img src="{% static 'images/authlogo.png' %}" alt="GoAgro Logo" class="w-10 h-10">
+    <span class="text-2xl font-extrabold text-green-600 tracking-tight">GoAgro</span>
+  </div>
+  <div class="hidden md:flex gap-8 text-gray-700 font-semibold">
+    <a href="#features" class="hover:text-green-600 transition">Features</a>
+    <a href="#about" class="hover:text-green-600 transition">About</a>
+    <a href="#contact" class="hover:text-green-600 transition">Contact</a>
+  </div>
+  <div class="flex gap-2">
+    <a href="{% url 'login' %}" class="px-5 py-2 rounded-full bg-green-600 text-white font-semibold shadow hover:bg-green-700 transition">Login</a>
+    <a href="{% url 'signup' %}" class="px-5 py-2 rounded-full border-2 border-green-600 text-green-600 font-semibold hover:bg-green-600 hover:text-white transition">Sign Up</a>
+  </div>
+</nav>
