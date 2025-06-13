@@ -1,48 +1,117 @@
-{% extends 'landing/base.html' %}
-{% load static %}
-{% block title %}SignUp{% endblock %}
-{% block forms %}
-
-{% for i in messages %}
-<div class="alert alert-danger" style="border-radius: 10px;" role="alert">
-  {{ i }}
-</div>
-{% endfor %}
-
-<h3 class="mb-0 d-flex align-items-center gap-1"> <img src="{% static 'images/authlogo.png' %}" alt="logo"
-    style="width: 50px;" class="img-fluid"> <b>Agro</b></h3>
-<h4>Create a new account</h4>
-<br>
-<form method="post" action"signup">
-
-  {% csrf_token %}
-
-  <div class="form-row">
-    <div style="margin-bottom: 2rem;">
-      <input style="border-radius: 10px 0px 0px 10px;" name="username" type="text" placeholder="Username"
-        aria-label="userame" class="form-control my-3 p-3" required>
+{% extends 'landing/base.html' %} {% load static %} {% block title %}Sign Up |
+GoAgro{% endblock %} {% block content %}
+<div class="flex flex-col items-center justify-center min-h-[80vh] py-12 px-4">
+  <div
+    class="w-full max-w-md bg-white rounded-2xl shadow-lg p-8 border border-green-100"
+  >
+    <div class="flex flex-col items-center mb-6">
+      <img
+        src="{% static 'images/authlogo.png' %}"
+        alt="GoAgro Logo"
+        class="w-16 mb-2"
+      />
+      <h2 class="text-2xl font-bold text-green-600">Create Your Account</h2>
     </div>
-
-    <div class="mb-3">
-      <input type="email" style="border-radius: 10px;" name="email" placeholder="Email" class="form-control my-3 p-3"
-        aria-label="Email" required>
+    {% for i in messages %}
+    <div class="mb-4 text-red-600 text-center">{{ i }}</div>
+    {% endfor %}
+    <form method="post" action="" id="signupForm">
+      {% csrf_token %}
+      <div class="mb-4">
+        <input
+          type="text"
+          name="username"
+          placeholder="Username"
+          class="w-full px-4 py-3 rounded-lg bg-green-50 text-gray-900 placeholder-green-600 border border-green-200 focus:outline-none focus:ring-2 focus:ring-green-400"
+          required
+        />
+      </div>
+      <div class="mb-4">
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          class="w-full px-4 py-3 rounded-lg bg-green-50 text-gray-900 placeholder-green-600 border border-green-200 focus:outline-none focus:ring-2 focus:ring-green-400"
+          required
+        />
+      </div>
+      <div class="mb-2">
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Password"
+          class="w-full px-4 py-3 rounded-lg bg-green-50 text-gray-900 placeholder-green-600 border border-green-200 focus:outline-none focus:ring-2 focus:ring-green-400"
+          required
+        />
+      </div>
+      <div class="mb-4">
+        <div class="w-full h-2 bg-green-100 rounded">
+          <div id="passwordStrengthBar" class="h-2 rounded transition-all duration-300" style="width:0%; background-color:#f87171;"></div>
+        </div>
+        <div id="passwordStrengthText" class="text-xs mt-1 text-gray-600"></div>
+      </div>
+      <button
+        type="submit"
+        id="signupBtn"
+        class="w-full py-3 rounded-lg bg-green-600 text-white font-semibold shadow hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+        disabled
+      >
+        Sign Up
+      </button>
+    </form>
+    <div class="mt-6 text-center text-gray-600">
+      Already have an account?
+      <a href="{% url 'login' %}" class="text-green-600 hover:underline"
+        >Login</a
+      >
     </div>
-
-    <div class="input-group">
-      <input style="border-radius: 10px 0px 0px 10px;" name="password" type="password" placeholder="New Password"
-        aria-label="New Password" class="form-control my-3 p-3" required>
-      <input style="border-radius: 0px 10px 10px 0px;" name="password2" type="password" placeholder="Confirm Password"
-        aria-label="Confirm Password" class="form-control my-3 p-3" required>
-    </div>
-
-    <div class="d-grid">
-      <button type="submit" class='btn1 mt-3 mb-5' name="signup">SignUp</button>
-    </div>
-
-    <a class="d-none" href="#">Forget Password ?</a>
-    <p>Already have an account ? <a href="{% url 'login' %}">Login here</a></p>
-
   </div>
-</form>
+</div>
+<script>
+  function checkPasswordStrength(password) {
+    const minLength = 8;
+    const specialChar = /[!@#$%^&*(),.?":{}|<>]/g;
+    const hasUpper = /[A-Z]/;
+    const hasDigit = /[0-9]/;
+    const hasAlpha = /[a-zA-Z]/;
+    let score = 0;
+    if (password.length >= minLength) score += 1;
+    if (specialChar.test(password)) score += 1;
+    if (hasDigit.test(password) && hasAlpha.test(password)) score += 1;
+    if (hasUpper.test(password)) score += 1;
+    return score;
+  }
 
+  const passwordInput = document.getElementById('password');
+  const strengthBar = document.getElementById('passwordStrengthBar');
+  const strengthText = document.getElementById('passwordStrengthText');
+  const signupBtn = document.getElementById('signupBtn');
+
+  passwordInput.addEventListener('input', function () {
+    const password = passwordInput.value;
+    const score = checkPasswordStrength(password);
+    if (score < 2) {
+      strengthBar.style.width = '25%';
+      strengthBar.style.backgroundColor = '#f87171';
+      strengthText.textContent = 'Password must be at least 8 characters, contain a special character, a digit, an uppercase letter, and be alphanumeric.';
+      signupBtn.disabled = true;
+    } else if (score === 2) {
+      strengthBar.style.width = '50%';
+      strengthBar.style.backgroundColor = '#fbbf24';
+      strengthText.textContent = 'Add a digit, uppercase letter, and make it alphanumeric.';
+      signupBtn.disabled = true;
+    } else if (score === 3) {
+      strengthBar.style.width = '75%';
+      strengthBar.style.backgroundColor = '#facc15';
+      strengthText.textContent = 'Add an uppercase letter to strengthen your password.';
+      signupBtn.disabled = true;
+    } else if (score === 4) {
+      strengthBar.style.width = '100%';
+      strengthBar.style.backgroundColor = '#22c55e';
+      strengthText.textContent = 'Strong password!';
+      signupBtn.disabled = false;
+    }
+  });
+</script>
 {% endblock %}
