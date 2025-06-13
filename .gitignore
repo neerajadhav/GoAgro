@@ -1,6 +1,50 @@
-.venv/
+# Django
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
 db.sqlite3
+media/
+staticfiles/
+.env
+.venv/
+# VSCode
+.vscode/
+# OS
+.DS_Store
+Thumbs.db
+# Python
+*.pyo
+*.pyd
+.Python
+# Migrations
+**/migrations/*.pyc
+**/migrations/__pycache__/
+# Coverage
+htmlcov/
+.coverage
+.coverage.*
+.cache
+# Test
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+# mypy
+.mypy_cache/
+.dmypy.json
+# pipenv
+Pipfile.lock
+# celery
+celerybeat-schedule
+celerybeat.pid
+# dotenv
+.env.*
+# gunicorn
+*.pid
+# Heroku
+/staticfiles/
+# Existing entries
 media/images/
 media/profile_pics/
-.env
-_pycache_/
